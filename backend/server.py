@@ -28,11 +28,12 @@ api_router = APIRouter(prefix="/api")
 # Import emergentintegrations after loading env vars
 try:
     from emergentintegrations.llm.chat import LlmChat, UserMessage
+    LLM_AVAILABLE = True
 except ImportError:
-    print("emergentintegrations not installed. Installing...")
-    import subprocess
-    subprocess.run(["pip", "install", "emergentintegrations", "--extra-index-url", "https://d33sy5i8bnduwe.cloudfront.net/simple/"], check=True)
-    from emergentintegrations.llm.chat import LlmChat, UserMessage
+    print("emergentintegrations not available - using mock responses")
+    LLM_AVAILABLE = False
+    LlmChat = None
+    UserMessage = None
 
 # Define Models
 class StatusCheck(BaseModel):
