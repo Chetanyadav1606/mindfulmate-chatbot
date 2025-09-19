@@ -160,22 +160,24 @@ async def send_chat_message(request: ChatRequest):
             {"session_id": session_id}
         ).sort("timestamp", 1).to_list(50)  # Last 50 messages
 
-        # Initialize LLM chat
-        api_key = os.environ.get('EMERGENT_LLM_KEY')
-        if not api_key:
-            raise HTTPException(status_code=500, detail="LLM API key not configured")
-
-        chat = LlmChat(
-            api_key=api_key,
-            session_id=session_id,
-            system_message=WELLNESS_SYSTEM_MESSAGE
-        ).with_model("gemini", "gemini-2.0-flash")
-
-        # Build conversation context (simplified for now)
-        user_message = UserMessage(text=request.message)
-        
         # Get AI response
-        ai_response = await chat.send_message(user_message)
+        if LLM_AVAILABLE:
+            # Initialize LLM chat
+            api_key = os.environ.get('EMERGENT_LLM_KEY')
+            if not api_key:
+                raise HTTPException(status_code=500, detail="LLM API key not configured")
+
+            chat = LlmChat(
+                api_key=api_key,
+                session_id=session_id,
+                system_message=WELLNESS_SYSTEM_MESSAGE
+            ).with_model("gemini", "gemini-2.0-flash")
+
+            user_message = UserMessage(text=request.message)
+            ai_response = await chat.send_message(user_message)
+        else:
+            # Use mock responses for development
+            ai_response = random.choice(MOCK_RESPONSES)
 
         # Save AI response to database
         ai_message_obj = ChatMessage(
