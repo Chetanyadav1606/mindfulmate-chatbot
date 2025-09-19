@@ -67,7 +67,26 @@ class ChatResponse(BaseModel):
     session_id: str
     timestamp: datetime
 
-# Mental wellness system message
+# Mock wellness responses for development
+MOCK_RESPONSES = [
+    "Thank you for sharing that with me. It sounds like you're going through a lot right now. How would you describe your energy level today on a scale of 1-10? 💚",
+    
+    "I hear you, and I want you to know that your feelings are completely valid. Sometimes when we're feeling overwhelmed, it helps to take a moment to breathe. Would you like to try a quick 3-minute breathing exercise with me? 🌱",
+    
+    "That's really insightful of you to notice that about yourself. Self-awareness is such an important step in taking care of our mental health. What's one small thing that usually helps you feel a bit better when you're having a tough day? ✨",
+    
+    "I'm glad you felt comfortable sharing that with me. Remember, it's okay to not be okay sometimes - that's part of being human. Have you been able to get enough rest lately? Sleep can really impact how we feel emotionally. 🌙",
+    
+    "What you're experiencing sounds really challenging. I want to remind you that you're not alone in this, and it's brave of you to reach out for support. Would it help to talk about what's been on your mind lately? 💙",
+    
+    "Thank you for trusting me with this. It sounds like you're being really hard on yourself. Sometimes it helps to practice self-compassion - what would you say to a friend who was going through what you're experiencing? 🤗",
+    
+    "I can sense that you're dealing with some difficult emotions right now. That takes strength. Would you like to try a grounding technique? It can help when we're feeling anxious or overwhelmed. 🌿",
+    
+    "It's wonderful that you're taking time to check in with your mental health. That shows real self-care. What's one thing you're grateful for today, even if it's something small? Gratitude can be a powerful tool for shifting our perspective. 🌻"
+]
+
+import random
 WELLNESS_SYSTEM_MESSAGE = """You are MindfulMate, a compassionate AI companion designed to support youth mental wellness. Your role is to:
 
 1. Provide empathetic, non-judgmental responses
