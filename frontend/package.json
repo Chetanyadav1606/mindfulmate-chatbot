@@ -74,6 +74,9 @@
   "devDependencies": {
     "@craco/craco": "^7.1.0",
     "@eslint/js": "9.23.0",
+    "add": "^2.0.6",
+    "ajv": "8",
+    "ajv-keywords": "5",
     "autoprefixer": "^10.4.20",
     "eslint": "9.23.0",
     "eslint-plugin-import": "2.31.0",
